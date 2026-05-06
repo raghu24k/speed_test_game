@@ -1,3 +1,5 @@
+from tkinter import font
+import pandas as pd
 import tkinter as tk
 import random 
 import time
@@ -39,3 +41,37 @@ def check_typing():
     wpm = int((words/time_taken)*60)
 
     correct_chars = 0
+
+    for i in range(min(len(typed_text),len(original_text))):
+        if typed_text[i] == original_text[i]:
+            correct_chars += 1
+
+    accuracy = int((correct_chars/len(original_text)*100))
+    result_label.config(
+        text=f"WPM: {wpm} | Accuracy: {accuracy}"
+    )
+
+# main window
+root = tk.Tk()
+root.title("typing speed game")
+root.geometry("700x400")
+
+title = tk.Label(root,text="Typing speed tester", font=('Arial',24))
+title.pack(pady=20)
+
+text_display = tk.Label(
+    root,
+    text='Click start to Begin',
+    wraplength=600,
+    font= ('Arial',16)
+)
+text_display.pack(pady=20)
+
+entry = tk.Entry(root,font=('Arial',16),width=50)
+entry.pack(pady=20)
+start_btn = tk.Button(
+    root,
+    text='start',
+    font=('Arial',16),
+    command=start_game
+)
